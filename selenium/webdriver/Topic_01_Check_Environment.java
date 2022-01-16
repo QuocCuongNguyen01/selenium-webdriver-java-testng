@@ -17,8 +17,8 @@ public class Topic_01_Check_Environment {
 
 	@BeforeClass
 	public void beforeClass() {
-		//System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
-		//driver = new FirefoxDriver();
+		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
+		driver = new FirefoxDriver();
 		
 		System.setProperty("webdriver.chrome.driver", projectPath + "/browserDriver/Chromedriver");
 		driver = new ChromeDriver();
