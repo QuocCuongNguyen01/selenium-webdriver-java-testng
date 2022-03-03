@@ -45,8 +45,8 @@ public class Topic_02_Selenium_locator {
 		
 		//CSS
 		driver.findElement(By.cssSelector("input[id='email']"));
-		//driver.findElement(By.cssSelector("input#email]"));
-		//driver.findElement(By.cssSelector("#email]"));
+		driver.findElement(By.cssSelector("input#email"));
+		driver.findElement(By.cssSelector("#email"));
 		
 		driver.findElement(By.cssSelector("input[class='s-input']"));
 		driver.findElement(By.cssSelector("input.s-input"));
@@ -60,12 +60,12 @@ public class Topic_02_Selenium_locator {
 		driver.findElement(By.xpath("//input[@id='email']"));
 		driver.findElement(By.xpath("//input[@class='s-input']"));
 		driver.findElement(By.xpath("//input[contains(@class,'s-inpu')]"));
-		//driver.findElement(By.xpath("//input[start-with(@class,'s-inpu')]"));
+		driver.findElement(By.xpath("//input[starts-with(@class,'s-inpu')]"));
 		driver.findElement(By.xpath("//input[@name='email']"));
 		driver.findElement(By.xpath("//input"));
-		//driver.findElement(By.xpath("//a[@text='Sign up']"));
-		//driver.findElement(By.xpath("//a[contains(@text(),'Sign')]"));
-		//driver.findElement(By.xpath("//a[contains(@text(),'up')]"));
+		driver.findElement(By.xpath("//a[text()='Sign up']"));
+		driver.findElement(By.xpath("//a[contains(text(),'Sign')]"));
+		driver.findElement(By.xpath("//a[contains(text(),'up')]"));
 		
 		
 		
