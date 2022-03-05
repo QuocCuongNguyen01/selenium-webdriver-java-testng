@@ -30,7 +30,9 @@ public class Topic_02_Selenium_locator {
 	@Test
 	public void TC_01() {
 		//id
-		driver.findElement(By.id("email"));
+		driver.findElement(By.id("email")).sendKeys("cuongdnqb5@gmail.com");
+		driver.findElement(By.id("password")).sendKeys("Cuong040996");
+		driver.findElement(By.id("submit-button")).click();;
 		//Class
 		driver.findElement(By.className("s-input"));
 		//Name
@@ -78,8 +80,8 @@ public class Topic_02_Selenium_locator {
 	public void TC_03() {
 	}
 
-	@AfterClass
-	public void afterClass() {
-		driver.quit();
+	//@AfterClass
+	//public void afterClass() {
+	//	driver.quit();
 	}
-}
+//}
