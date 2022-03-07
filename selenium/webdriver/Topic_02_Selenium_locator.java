@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -15,13 +16,15 @@ public class Topic_02_Selenium_locator {
 
 	@BeforeClass
 	public void beforeClass() {
+		//Mở browser
 		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
 		driver = new FirefoxDriver();
 		
 		//System.setProperty("webdriver.chrome.driver", projectPath + "/browserDriver/Chromedriver");
 		//driver = new ChromeDriver();
-		
+		// Hàm tìm element
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		// Hàm mở app
 		driver.manage().window().maximize();
 		driver.get("https://stackoverflow.com/users/login?ssrc=user_prefs&returnurl=https%3a%2f%2fstackoverflow.com%2fusers%2fpreferences%2fcurrent");
 	
@@ -33,6 +36,9 @@ public class Topic_02_Selenium_locator {
 		driver.findElement(By.id("email")).sendKeys("cuongdnqb5@gmail.com");
 		driver.findElement(By.id("password")).sendKeys("Cuong040996");
 		driver.findElement(By.id("submit-button")).click();;
+		WebElement loginButton = driver.findElement(By.id("submit-button"));
+		loginButton.click();
+		loginButton.isDisplayed();
 		//Class
 		driver.findElement(By.className("s-input"));
 		//Name
