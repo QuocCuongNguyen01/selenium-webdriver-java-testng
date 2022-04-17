@@ -14,7 +14,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Topic_07_Web_Element {
+public class Topic_07_Web_Element_PI {
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
 
