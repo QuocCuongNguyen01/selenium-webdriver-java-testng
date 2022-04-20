@@ -33,6 +33,7 @@ public class Topic_06_Web_Browser_PII {
 	@Test
 	public void TC_01() {
 		driver.get("http://live.techpanda.org/");
+		sleepInsecond(5);
 		driver.findElement(By.cssSelector("div.footer a[title='My Account']")).click();
 		String loginPageUrl= driver.getCurrentUrl();
 		//Assert.assertEquals(loginPageUrl, "http://live.techpanda.org/index.php/customer/account/login/");
@@ -44,6 +45,7 @@ public class Topic_06_Web_Browser_PII {
 	@Test
 	public void TC_02() {
 		driver.get("http://live.techpanda.org/");
+		sleepInsecond(5);
 		driver.findElement(By.cssSelector("div.footer a[title='My Account']")).click();
 		String loginPageTitle= driver.getTitle();
 		
@@ -54,6 +56,7 @@ public class Topic_06_Web_Browser_PII {
 	@Test
 	public void TC_03() {
 		driver.get("http://live.techpanda.org/");
+		sleepInsecond(5);
 		driver.findElement(By.cssSelector("div.footer a[title='My Account']")).click();
 		driver.findElement(By.cssSelector("a[title='Create an Account']")).click();
 		driver.navigate().back();
@@ -64,6 +67,7 @@ public class Topic_06_Web_Browser_PII {
 	@Test
 	public void TC_04() {
 		driver.get("http://live.techpanda.org/");
+		sleepInsecond(5);
 		driver.findElement(By.cssSelector("div.footer a[title='My Account']")).click();
 		String loginPageSource = driver.getPageSource();
 		Assert.assertTrue(loginPageSource.contains("Login or Create an Account"));
@@ -75,5 +79,13 @@ public class Topic_06_Web_Browser_PII {
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
+	}
+	public void sleepInsecond(long timeInsecond) {
+		try {
+			Thread.sleep(timeInsecond * 1000);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
 	}
 }
