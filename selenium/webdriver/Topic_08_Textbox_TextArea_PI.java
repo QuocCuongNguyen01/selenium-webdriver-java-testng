@@ -14,7 +14,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Topic_08_Textbox_TextArea {
+public class Topic_08_Textbox_TextArea_PI {
 	//Khai báo 
 	WebDriver driver;
 	JavascriptExecutor jsExecutor;
