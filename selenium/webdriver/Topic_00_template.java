@@ -6,6 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,10 +16,12 @@ import org.testng.annotations.Test;
 
 public class Topic_00_template {
 	WebDriver driver;
+	
 	String projectPath = System.getProperty("user.dir");
 
 	@BeforeClass
 	public void beforeClass() {
+		
 		// Mở browser lên
 		//System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
 		//driver = new FirefoxDriver();
@@ -29,6 +34,8 @@ public class Topic_00_template {
 		driver.manage().window().maximize();
 		// Mở app lên
 		driver.get("https://www.facebook.com/");
+		
+	
 	
 	}
 

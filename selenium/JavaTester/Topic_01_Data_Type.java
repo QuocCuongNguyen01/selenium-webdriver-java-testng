@@ -1,14 +1,21 @@
 package JavaTester;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 
 public class Topic_01_Data_Type {
+	  	WebElement driver;
 	
 	public static void main(String[] args) {
+		//System.setProperty("webdriver.chrome.driver", projectPath + "/browserDriver/Chromedriver");
+		//WebDriver driver = new FirefoxDriver();
 		// Kiểu dữ liệu
 		// Khái báo biến: Kiểu dữ liệu + tên biến
 		int studentNumber;
@@ -50,7 +57,7 @@ public class Topic_01_Data_Type {
 		String[] studentNames = {"Nam", "Phat", "Hung"}; 
 		
 		// Class/Interface
-		//WebDriver driver = new ChromeDriver();
+		WebDriver driver = new ChromeDriver();
 		
 		//Actions action = new Actions(driver);	
 		
@@ -76,7 +83,9 @@ public class Topic_01_Data_Type {
 		System.out.println(c);
 		
 		
-		
+		By emailTextbox = By.cssSelector("");
+		WebElement emailTextboxs =  driver.findElement(By.cssSelector(""));
+		List<WebElement> checkboxes = driver.findElements(By.cssSelector(""));
 		
 	}
 
