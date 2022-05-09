@@ -46,7 +46,7 @@ public class Topic_10_Handle_Custom_Dropdown {
 	
 	}
 
-	//@Test
+	@Test
 		public void TC_01_JQuery() {
 		//"ul#number-menu li div"
 		//ul#number-menu li div
@@ -125,13 +125,59 @@ public class Topic_10_Handle_Custom_Dropdown {
 		// - Item này sẽ đổ dữ liệu vào dropdown này => Verify chọn thành công
 	}
 	
-	//@Test
-	public void TC_03() {
-		driver.get("https://www.honda.com.vn/o-to/du-toan-chi-phi");
+	@Test
+	public void TC_03_React() {
+		selectItemCustomDropdownR("//div[@style='pointer-events:all']","//div[@style='pointer-events:all']", "Jenny Hess" );
 		
-		
-		driver.findElement(By.xpath("//button[@id='selectize-input']")).click();
 	}
+	@Test
+	public void TC_04_VueJS() {
+		selectItemCustomDropdownV("//li/a","//li/a", "Second Option" );
+		
+	}
+	public void selectItemCustomDropdownV(String parentLocatorV, String childLocatorV, String expectedItemV) {
+		driver.get("https://mikerodham.github.io/vue-dropdowns/");
+		sleepInsecond(2);
+		
+		driver.findElement(By.cssSelector("div.btn-group")).click();
+
+		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(parentLocatorV)));
+		List<WebElement> allDropdownItems = driver.findElements(By.xpath(childLocatorV));
+
+		for (WebElement item : allDropdownItems) {
+			String actualTextItem = item.getText();
+			System.out.println("Item text = " + actualTextItem);
+			if (actualTextItem.equals(expectedItemV)) {
+				item.click();
+
+				break;
+
+			}
+		}
+
+	}
+	public void selectItemCustomDropdownR(String parentLocatorR, String childLocatorR, String expectedItemR) {
+		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-selection/");
+		sleepInsecond(2);
+		
+		driver.findElement(By.xpath("//div[@class='ui fluid selection dropdown']")).click();
+
+		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(parentLocatorR)));
+		List<WebElement> allDropdownItems = driver.findElements(By.xpath(childLocatorR));
+
+		for (WebElement item : allDropdownItems) {
+			String actualTextItem = item.getText();
+			System.out.println("Item text = " + actualTextItem);
+			if (actualTextItem.equals(expectedItemR)) {
+				item.click();
+
+				break;
+
+			}
+		}
+
+	}
+
 	public void sleepInsecond(long timeInsecond) {
 		try {
 			Thread.sleep(timeInsecond * 1000);
@@ -143,6 +189,6 @@ public class Topic_10_Handle_Custom_Dropdown {
 
 	@AfterClass
 	public void afterClass() {
-		//driver.quit();
+		driver.quit();
 	}
 }
