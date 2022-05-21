@@ -1,9 +1,11 @@
 package webdriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -14,7 +16,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Topic_00_template {
+public class Topic_00_Eg {
 
 WebDriver driver;
 
@@ -42,11 +44,47 @@ public void beforeClass() {
 
 @Test
 public void TC_01() {
+	driver.get("https://automationfc.github.io/multiple-fields/");
 	
+	
+	//Select All Checkbox
+	List<WebElement> allCheckbox = driver.findElements(By.cssSelector("input.form-checkbox"));
+	for (WebElement checkbox : allCheckbox) {
+		if (!checkbox.isSelected()) {
+			checkbox.click();
+			sleepInsecond(1);
+		}
+	}
+	//Verify all Checkbox are Selected 
+	for (WebElement checkbox : allCheckbox) {
+		Assert.assertTrue(checkbox.isSelected());
+		
+	}
+	//Deselected all
+	for (WebElement checkbox : allCheckbox) {
+		if (checkbox.isSelected()) {
+			checkbox.click();
+			sleepInsecond(1);
+		}
+	}
+	//Verify all checkbox are
+	for (WebElement checkbox : allCheckbox) {
+		Assert.assertFalse(checkbox.isSelected());
+	}
 }
+	
+	
 @Test
 public void TC_02() {
 	
+}
+public void sleepInsecond(long timeInsecond) {
+	try {
+		Thread.sleep(timeInsecond * 1000);
+	} catch (InterruptedException e) {
+		
+		e.printStackTrace();
+	}
 }
 @Test
 public void TC_03() {

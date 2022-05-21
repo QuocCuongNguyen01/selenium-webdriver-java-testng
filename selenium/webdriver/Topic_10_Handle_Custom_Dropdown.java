@@ -48,16 +48,19 @@ public class Topic_10_Handle_Custom_Dropdown {
 
 	@Test
 		public void TC_01_JQuery() {
+		driver.get("http://jqueryui.com/resources/demos/selectmenu/default.html");
 		//"ul#number-menu li div"
 		//ul#number-menu li div
-		selectItemCustomDropdown("ul#number-menu li div", "ul#number-menu li div", "10");
-		selectItemCustomDropdown("ul#number-menu li div", "ul#number-menu li div", "5");
+		selectItemCustomDropdown("span#number-button span.ui-selectmenu-text", "ul#number-menu li div", "10");
+		selectItemCustomDropdown("span#number-button span.ui-selectmenu-text", "ul#number-menu li div", "5");
 			
 		
 	}
 	@Test
 	public void TC_02_JQuery2() {
-		selectItemCustomDropdownH("//div[@class='dropdown-menu show']/a", "//div[@class='dropdown-menu show']/a", "CITY L");
+		driver.get("https://www.honda.com.vn/o-to/du-toan-chi-phi");
+		driver.findElement(By.xpath("//button[@class='btn btn-primary x']")).click();
+		selectItemCustomDropdown("button.btn", "div.dropdown-menu a", "CITY L");
 		
 		select = new Select(driver.findElement(By.name("province")));
 		select.selectByVisibleText(tinh);
@@ -67,39 +70,32 @@ public class Topic_10_Handle_Custom_Dropdown {
 		Assert.assertEquals(select.getFirstSelectedOption().getText(), khuvuc);
 		
 	}
+	@Test
+	public void TC_03_React() {
+		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-selection/");
+		selectItemCustomDropdown("div.divider","div[role='option']", "Jenny Hess" );
+		
+	}
+	@Test
+	public void TC_04_VueJS() {
+		driver.get("https://mikerodham.github.io/vue-dropdowns/");
+		selectItemCustomDropdown("div.btn-group","li a", "Second Option" );
+		
+	}
 
-	public void selectItemCustomDropdownH(String parentLocatorH, String childLocatorH, String expectedItemH) {
-		driver.get("https://www.honda.com.vn/o-to/du-toan-chi-phi");
-		sleepInsecond(5);
-		driver.findElement(By.xpath("//button[@class='btn btn-primary x']")).click();
-
-		driver.findElement(By.xpath("//button[@class='btn dropdown-toggle']")).click();
-
-		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(parentLocatorH)));
-		List<WebElement> allDropdownItems = driver.findElements(By.xpath(childLocatorH));
-
-		for (WebElement item : allDropdownItems) {
-			String actualTextItem = item.getText();
-			System.out.println("Item text = " + actualTextItem);
-			if (actualTextItem.equals(expectedItemH)) {
-				item.click();
-
-				break;
-
-			}
-		}
+	
 
 		// - Item này sẽ đổ dữ liệu vào dropdown này => Verify chọn thành công
-	}
+	
 	public void selectItemCustomDropdown (String parentLocator, String childLocator, String expectedItem) {
-		driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
+		
 		//	- Click vào dropdown cho xổ hết tất cả các item con bên trong ra => Click
 				
-		driver.findElement(By.cssSelector("span#number-button span.ui-selectmenu-text")).click();
+		driver.findElement(By.cssSelector(parentLocator)).click();
 		// - Chờ cho tất cả các item con bên trong được load ra => WebDriverWait
 	    // By Locator = đại diện cho " các item con bên trong" được load ra 
 		// lấy locator đến thẻ chưa text item	 
-		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(parentLocator)));
+		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(childLocator)));
 		// - Tìm item mong muốn (nếu như ko hiển thị thì cần cuộn chuột xuống để tìm) =>
 		// Vòng lặp để lấy hết tất cả item rồi duyệt qua - getText từng cái
 		
@@ -125,59 +121,9 @@ public class Topic_10_Handle_Custom_Dropdown {
 		// - Item này sẽ đổ dữ liệu vào dropdown này => Verify chọn thành công
 	}
 	
-	@Test
-	public void TC_03_React() {
-		selectItemCustomDropdownR("//div[@style='pointer-events:all']","//div[@style='pointer-events:all']", "Jenny Hess" );
-		
-	}
-	@Test
-	public void TC_04_VueJS() {
-		selectItemCustomDropdownV("//li/a","//li/a", "Second Option" );
-		
-	}
-	public void selectItemCustomDropdownV(String parentLocatorV, String childLocatorV, String expectedItemV) {
-		driver.get("https://mikerodham.github.io/vue-dropdowns/");
-		sleepInsecond(2);
-		
-		driver.findElement(By.cssSelector("div.btn-group")).click();
 
-		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(parentLocatorV)));
-		List<WebElement> allDropdownItems = driver.findElements(By.xpath(childLocatorV));
-
-		for (WebElement item : allDropdownItems) {
-			String actualTextItem = item.getText();
-			System.out.println("Item text = " + actualTextItem);
-			if (actualTextItem.equals(expectedItemV)) {
-				item.click();
-
-				break;
-
-			}
-		}
-
-	}
-	public void selectItemCustomDropdownR(String parentLocatorR, String childLocatorR, String expectedItemR) {
-		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-selection/");
-		sleepInsecond(2);
-		
-		driver.findElement(By.xpath("//div[@class='ui fluid selection dropdown']")).click();
-
-		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(parentLocatorR)));
-		List<WebElement> allDropdownItems = driver.findElements(By.xpath(childLocatorR));
-
-		for (WebElement item : allDropdownItems) {
-			String actualTextItem = item.getText();
-			System.out.println("Item text = " + actualTextItem);
-			if (actualTextItem.equals(expectedItemR)) {
-				item.click();
-
-				break;
-
-			}
-		}
-
-	}
-
+	
+	
 	public void sleepInsecond(long timeInsecond) {
 		try {
 			Thread.sleep(timeInsecond * 1000);
@@ -189,6 +135,6 @@ public class Topic_10_Handle_Custom_Dropdown {
 
 	@AfterClass
 	public void afterClass() {
-		driver.quit();
+		//driver.quit();
 	}
 }
