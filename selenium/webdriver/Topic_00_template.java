@@ -51,7 +51,14 @@ public void TC_02() {
 @Test
 public void TC_03() {
 }
-
+public void sleepInsecond(long timeInsecond) {
+	try {
+		Thread.sleep(timeInsecond * 1000);
+	} catch (InterruptedException e) {
+		
+		e.printStackTrace();
+	}
+}
 @AfterClass
 public void afterClass() {
 	driver.quit();
