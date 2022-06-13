@@ -94,8 +94,9 @@ public void TC_04_Authentication_Alert() {
 	String password = "admin";
 	String url = "http://" + username +":"+ password +"@"+"the-internet.herokuapp.com/basic_auth";
 	driver.get(url);
-	Assert.assertEquals(driver.findElement(By.cssSelector("div#content p")).getText(), "Congratulations! You must have the proper credentials.");
-	
+	//Assert.assertEquals(driver.findElement(By.cssSelector("div#content p")).getText(), "Congratulations! You must have the proper credentials.");
+	String containText = driver.findElement(By.cssSelector("div#content p")).getText();
+	Assert.assertTrue(containText.contains("Congratulations! You must have the proper credentials."));
 }
 public void sleepInsecond(long timeInsecond) {
 	try {
