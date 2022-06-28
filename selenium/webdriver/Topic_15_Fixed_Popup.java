@@ -1,8 +1,11 @@
 package webdriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +23,7 @@ public class Topic_15_Fixed_Popup {
 WebDriver driver;
 String userName, passWord;
 String projectPath = System.getProperty("user.dir");
+JavascriptExecutor jsExecutor;
 
 @BeforeClass
 public void beforeClass() {
@@ -27,15 +31,16 @@ public void beforeClass() {
 	// Mở browser lên
 	System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
 	driver = new FirefoxDriver();
+	jsExecutor = (JavascriptExecutor) driver;
 	
 	//System.setProperty("webdriver.chrome.driver", projectPath + "/browserDriver/Chromedriver");
 	//driver = new ChromeDriver();
 	// Hàm này áp dụng việc tìm element(findElement/ findElements)
-	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	// Phóng to browser lên
 	driver.manage().window().maximize();
-	userName = "automationfc";
-	passWord = "automationfc";
+	userName = "cuongdnqb5@gmail.com";
+	passWord = "123456";
 
 
 }
@@ -62,7 +67,7 @@ public void TC_01_Ngoaingu24h() {
 	
 	Assert.assertFalse(loginPopup.isDisplayed());
 }
-@Test
+//@Test
 public void TC_02_Kyna() {
 	driver.get("https://kyna.vn/");
 	WebElement dangnhapPopup = driver.findElement(By.cssSelector("div#k-popup-account-login"));
@@ -87,8 +92,68 @@ public void TC_02_Kyna() {
 	
 	
 }
+//@Test
+public void TC_03_Fixed_Not_In_DOM() {
+	driver.get("https://tiki.vn/");
+	List<WebElement> loginPopup = driver.findElements(By.cssSelector("div.ReactModal__Overlay"));
+	//Undisplayer
+	Assert.assertEquals(loginPopup.size(), 0);
+	
+	driver.findElement(By.xpath("//span[text()='Đăng Nhập / Đăng Ký']")).click();
+	
+	Assert.assertTrue(driver.findElement(By.cssSelector("div.ReactModal__Overlay")).isDisplayed());
+	
+	loginPopup = driver.findElements(By.cssSelector("div.ReactModal__Overlay"));
+	
+	
+	Assert.assertEquals(loginPopup.size(), 1);	
+	Assert.assertTrue(loginPopup.get(0).isDisplayed());	
+	sleepInsecond(5);
+	
+	driver.findElement(By.cssSelector("img.close-img")).click();
+	
+	loginPopup = driver.findElements(By.cssSelector("div.ReactModal__Overlay"));
+	
+	
+	Assert.assertEquals(loginPopup.size(), 0);	
+	
+	
+	
+}
+//@Test
+public void TC_04_Random_In_DOM_KMPlayer() {
+	driver.get("https://www.kmplayer.com/home");
+	WebElement popupLayer = driver.findElement(By.cssSelector("div.pop-layer"));
+	
+	if (popupLayer.isDisplayed()) {
+		System.out.println("Step close popup");
+		jsExecutor.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("area#btn-r")));
+		sleepInsecond(3);
+	}
+	System.out.println("Step close popup 2");
+	driver.findElement(By.xpath("//p[text()='Buy us a Coffee']")).click();
+	Assert.assertEquals(driver.getCurrentUrl(), "https://www.buymeacoffee.com/kmplayer?ref=hp&kind=top");
+}
 @Test
-public void TC_03() {
+public void TC_05_Random_Not_In_DOM() {
+	
+	driver.manage().window().setSize(new Dimension(1366,768));
+	
+	driver.get("https://dehieu.vn/");
+	List<WebElement> contentPopup = driver.findElements(By.cssSelector("div.popup-content"));
+ sleepInsecond(3);
+	if (contentPopup.size() > 0 && contentPopup.get(0).isDisplayed()) {
+		System.out.println("Đóng popup và qua bước kế tiếp");
+		driver.findElement(By.cssSelector("input#popup-name")).sendKeys("cuongnguyen");
+		driver.findElement(By.cssSelector("input#popup-email")).sendKeys("cuongnguyen@gmail.com");
+		driver.findElement(By.cssSelector("input#popup-phone")).sendKeys("0367887486");
+		sleepInsecond(10);
+		jsExecutor.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("button#close-popup")));
+		//driver.findElement(By.cssSelector("button#close-popup")).click();
+	}
+	System.out.println("Không có  popup và qua bước kế tiếp");
+	driver.findElement(By.xpath("//a[text()='Tất cả khóa học']")).click();
+	Assert.assertEquals(driver.getCurrentUrl(), "https://dehieu.vn/khoa-hoc");
 }
 public void sleepInsecond(long timeInsecond) {
 	try {

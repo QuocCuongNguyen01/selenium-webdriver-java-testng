@@ -17,24 +17,29 @@ import org.testng.annotations.Test;
 public class Topic_00_template {
 
 WebDriver driver;
-
+String osName = System.getProperty("os.name");
 String projectPath = System.getProperty("user.dir");
 
 @BeforeClass
 public void beforeClass() {
+	if (osName.contains("Mac OS")) {
+		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
+		
+	}else {
+		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDriver\\geckodriver");
+	}
 	
 	// Mở browser lên
 	//System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
-	//driver = new FirefoxDriver();
+	driver = new FirefoxDriver();
 	
-	System.setProperty("webdriver.chrome.driver", projectPath + "/browserDriver/Chromedriver");
-	driver = new ChromeDriver();
+	//System.setProperty("webdriver.chrome.driver", projectPath + "/browserDriver/Chromedriver");
+	//driver = new ChromeDriver();
 	// Hàm này áp dụng việc tìm element(findElement/ findElements)
 	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	// Phóng to browser lên
 	driver.manage().window().maximize();
 	// Mở app lên
-	driver.get("https://www.facebook.com/");
 	
 
 
@@ -42,6 +47,7 @@ public void beforeClass() {
 
 @Test
 public void TC_01() {
+
 	
 }
 @Test
