@@ -113,7 +113,10 @@ public void TC_02_Rode() {
 	sleepInsecond(2);
 	driver.findElement(registerButton).click();
 	Assert.assertEquals(getElementValidationMessage("//div[contains(text(),'Register')]//following-sibling::div//input[@id='email']"), "Please fill out this field.");
-	driver.findElement(By.xpath("//div[contains(text(),'Register')]//following-sibling::div//input[@id='email']")).sendKeys("automationFC@gmail.com");
+	driver.findElement(By.xpath("//div[contains(text(),'Register')]//following-sibling::div//input[@id='email']")).sendKeys("automationFC@gmail.co");
+	driver.findElement(registerButton).click();
+	Assert.assertEquals(getElementValidationMessage("//div[contains(text(),'Register')]//following-sibling::div//input[@id='password']"), "Please fill out this field.");
+
 	sleepInsecond(2);
 	driver.findElement(registerButton).click();
 	Assert.assertEquals(getElementValidationMessage("//div[contains(text(),'Register')]//following-sibling::div//input[@id='password']"), "Please fill out this field.");
