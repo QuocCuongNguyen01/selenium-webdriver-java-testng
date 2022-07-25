@@ -14,7 +14,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Topic_20_ImlicitWait {
+public class Topic_22_ImlicitWait {
 
 	WebDriver driver;
 	String osName = System.getProperty("os.name");
