@@ -38,7 +38,7 @@ public class Topic_25_Mix_Implicit_Explicit {
 
 	}
 
-	public void TC_01() {
+	public void TC_01_Element_Found() {
 		// Element có xuất hiện và không cần chờ hêt timeout
 		// Dù có xét cả 2 loại wait thì đều không ảnh hưởng
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -57,7 +57,6 @@ public class Topic_25_Mix_Implicit_Explicit {
 		System.out.println("Thời gian kết thúc của implicit:" + getTimeStamp());
 	}
 
-	
 	public void TC_02_Element_Not_Found_Implicit() {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -73,28 +72,66 @@ public class Topic_25_Mix_Implicit_Explicit {
 
 	}
 
-	@Test
 	public void TC_03_Element_Not_Found_Implicit_Explicit() {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		explicitWait = new WebDriverWait(driver, 8);
 
 		driver.get("https://wwww.facebook.com/");
 
-		//System.out.println("Thời gian bắt đầu của implicit:" + getTimeStamp());
-		///try {
-		//	driver.findElement(By.cssSelector("input#cuongnguyen"));
-		//} catch (Exception e) {
-		//	System.out.println("Thời gian kết thúc của implicit:" + getTimeStamp());
+		// System.out.println("Thời gian bắt đầu của implicit:" + getTimeStamp());
+		/// try {
+		// driver.findElement(By.cssSelector("input#cuongnguyen"));
+		// } catch (Exception e) {
+		// System.out.println("Thời gian kết thúc của implicit:" + getTimeStamp());
 
-		//}
+		// }
 		System.out.println("Thời gian bắt đầu của explicit:" + getTimeStamp());
 		try {
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#cuongnguyen")));
 		} catch (Exception e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 			System.out.println("Thời gian kết thúc của exp;icit:" + getTimeStamp());
 		}
-	
+
+	}
+
+	public void TC_04_Element_Not_Found_Explicit_By() {
+
+		explicitWait = new WebDriverWait(driver, 5);
+
+		driver.get("https://wwww.facebook.com/");
+
+		// Explicit - By là tham số nhận vào của hàmg Explicit -
+		// visibilityOfElementLocated(By)
+		// Implicit = 0
+		// Tổng time = Explicit
+		System.out.println("Thời gian bắt đầu của explicit:" + getTimeStamp());
+		try {
+			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#cuongnguyen")));
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Thời gian kết thúc của exp;icit:" + getTimeStamp());
+		}
+	}
+	@Test
+	public void TC_05_Element_Not_Found_Explicit_Element() {
+
+		explicitWait = new WebDriverWait(driver, 5);
+
+		driver.get("https://wwww.facebook.com/");
+
+		// Explicit - By là tham số nhận vào của hàmg Explicit -
+		// visibilityOfElementLocated(By)
+		// Implicit = 0
+		// Tổng time = Explicit
+		System.out.println("Thời gian bắt đầu của explicit:" + getTimeStamp());
+		try {
+			explicitWait
+					.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("input#cuongnguyen"))));
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Thời gian kết thúc của exp;icit:" + getTimeStamp());
+		}
 	}
 
 	@AfterClass
