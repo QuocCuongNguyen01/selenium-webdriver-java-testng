@@ -3,6 +3,7 @@ package webdriver;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,57 +17,56 @@ import org.testng.annotations.Test;
 
 public class Topic_00_template {
 
-WebDriver driver;
-String osName = System.getProperty("os.name");
-String projectPath = System.getProperty("user.dir");
+	WebDriver driver;
+	String osName = System.getProperty("os.name");
+	String projectPath = System.getProperty("user.dir");
+	WebDriverWait explicitWait;
+	JavascriptExecutor jsExcutor;
 
-@BeforeClass
-public void beforeClass() {
-	if (osName.contains("Mac OS")) {
-		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
-		
-	}else {
-		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDriver\\geckodriver");
+	@BeforeClass
+	public void beforeClass() {
+		if (osName.contains("Mac OS")) {
+			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
+
+		} else {
+			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDriver\\geckodriver");
+		}
+
+		// Mở browser lên
+		// System.setProperty("webdriver.gecko.driver", projectPath +
+		// "/browserDriver/geckodriver");
+		driver = new FirefoxDriver();
+		explicitWait = new WebDriverWait(driver, 15);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		jsExcutor = (JavascriptExecutor) driver;
 	}
-	
-	// Mở browser lên
-	//System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
-	driver = new FirefoxDriver();
-	
-	//System.setProperty("webdriver.chrome.driver", projectPath + "/browserDriver/Chromedriver");
-	//driver = new ChromeDriver();
-	// Hàm này áp dụng việc tìm element(findElement/ findElements)
-	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	// Phóng to browser lên
-	driver.manage().window().maximize();
-	// Mở app lên
-	
 
+	@Test
+	public void TC_01() {
 
-}
-
-@Test
-public void TC_01() {
-
-	
-}
-@Test
-public void TC_02() {
-	
-}
-@Test
-public void TC_03() {
-}
-public void sleepInsecond(long timeInsecond) {
-	try {
-		Thread.sleep(timeInsecond * 1000);
-	} catch (InterruptedException e) {
-		
-		e.printStackTrace();
 	}
-}
-@AfterClass
-public void afterClass() {
-	driver.quit();
-}
+
+	@Test
+	public void TC_02() {
+
+	}
+
+	@Test
+	public void TC_03() {
+	}
+
+	public void sleepInsecond(long timeInsecond) {
+		try {
+			Thread.sleep(timeInsecond * 1000);
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	@AfterClass
+	public void afterClass() {
+		driver.quit();
+	}
 }
