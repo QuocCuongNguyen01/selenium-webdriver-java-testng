@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Topic_01_Assert {
+public class Topic_02_Assert {
 	WebDriver driver;
 	@Test
 	public void TC_01(){

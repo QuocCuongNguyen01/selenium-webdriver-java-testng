@@ -1,14 +1,15 @@
 package webdriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -22,6 +23,7 @@ public class Topic_27_Page_Ready {
 	String projectPath = System.getProperty("user.dir");
 	WebDriverWait explicitWait;
 	JavascriptExecutor jsExecutor;
+	Actions action;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -38,9 +40,11 @@ public class Topic_27_Page_Ready {
 		driver = new FirefoxDriver();
 		jsExecutor = (JavascriptExecutor) driver;
 		explicitWait = new WebDriverWait(driver, 30);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		action = new Actions(driver);
 	}
 
-	@Test
+	
 	public void TC_01_OrangeHRM() {
 		String nameInput = "Peter Mac";
 		driver.get("https://opensource-demo.orangehrmlive.com");
@@ -58,7 +62,30 @@ public class Topic_27_Page_Ready {
 	}
 
 	@Test
-	public void TC_02() {
+	public void TC_02_TestProject() {
+		driver.get("https://blog.testproject.io/");
+		String keyword = "Selenium";
+		if(driver.findElement(By.cssSelector("div.mailch-wrap")).isDisplayed()) {
+			System.out.println("close popup");
+			driver.findElement(By.cssSelector("div#close-mailch")).click();
+		}
+		// Hover mouse to search textbox
+		action.moveToElement(driver.findElement(By.cssSelector("section#search-2 input.search-field"))).perform();
+		System.out.println("wait cho page ready");
+		Assert.assertTrue(isPageLoadedSuccess());
+
+		System.out.println("enter value to textbovx");
+		driver.findElement(By.cssSelector("section#search-2 input.search-field")).sendKeys(keyword);
+		driver.findElement(By.cssSelector("section#search-2 span.glass")).click();
+		driver.findElement(By.cssSelector("section#primary h2 span")).isDisplayed();
+		
+		Assert.assertTrue(isPageLoadedSuccess());
+		List<WebElement> postTitle = driver.findElements(By.cssSelector("h3.post-title>a"));
+		for (WebElement title : postTitle) {
+			String postTitleText = title.getText();
+			System.out.println(postTitleText);
+			Assert.assertTrue(postTitleText.contains(keyword));
+		}
 
 	}
 
