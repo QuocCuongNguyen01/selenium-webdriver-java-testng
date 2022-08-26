@@ -47,16 +47,16 @@ public class Topic_26_FluentWait {
 		// "/browserDriver/geckodriver");
 		driver = new FirefoxDriver();
 	}
-
+@Test
 	public void TC_01_FluentWait() {
 		driver.get("https://automationfc.github.io/dynamic-loading/");
 		findElement("//button[text()='Start']").click();
-		findElement("//div[@id='finish']/h4").isDisplayed();
+		//findElement("//div[@id='finish']/h4").isDisplayed();
 		Assert.assertEquals(findElement("//div[@id='finish']/h4").getText(), "Hello World!");
 	}
 	
 
-	@Test
+	//@Test
 	public void TC_02() {
 		driver.get("https://automationfc.github.io/fluent-wait/");
 		WebElement countdountTime  = findElement("//div[@id='javascript_countdown_time']");
