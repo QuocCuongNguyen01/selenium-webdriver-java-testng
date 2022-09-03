@@ -1,37 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="tests" name="Suite" thread-count="3">
 
+	<listeners>
+		<listener class-name="Listener.ExtentReportListener" />
+	</listeners>
+	<!--<groups>
+		<run>
+			<include name="admin"></include>
+		</run>
+	</groups>-->
 
-	<!--<class name="tiki.admin.Shopper_01_Manage_Product" /> -->
-	<!-- <class name="tiki.admin.Shopper_02_Manage_Cart" />-->
-	<!-- <class name="tiki.user.User_01_Checkout" />-->
-	<!--<class name="tiki.user.User_02_Order" /> 
-			<groups>
-			<run>
-				<include name="cart"></include>
-			</run>
-		</groups>
-		<packages>
-			<package name="tiki.admin" />
-		</packages>-->
 	<parameter name="environment" value="live" />
 	<test name="Run on FIREFOX">
 		<parameter name="browser" value="firefox" />
 		<classes>
-			<class name="testNG.Topic_06_Parameter_Environment"></class>
+			<class name="testNG.Topic_10_Listener"/>
 		</classes>
 	</test>
-	<test name="Run on CHROME">
-		<parameter name="browser" value="chrome" />
-		<classes>
-			<class name="testNG.Topic_06_Parameter_Environment"></class>
-		</classes>
-	</test>
-	<test name="Run on EDGE">
-		<parameter name="browser" value="edge" />
-		<classes>
-			<class name="testNG.Topic_06_Parameter_Environment"></class>
-		</classes>
 
-	</test>
 </suite>
